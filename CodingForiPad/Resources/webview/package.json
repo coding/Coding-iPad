@@ -1,0 +1,26 @@
+{
+  "name": "static-web",
+  "version": "0.1.0",
+  "description": "static web template for coding.net",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.6.5",
+    "bower": "*",
+    "express": "*",
+	"inline-html": "*"
+  },
+  "scripts": {
+    "postinstall": "./node_modules/bower/bin/bower install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://coding.net/bluishoul/static-web.git"
+  },
+  "keywords": [
+    "static",
+    "web",
+    "template"
+  ],
+  "author": "bluishoul",
+  "license": "MIT"
+}

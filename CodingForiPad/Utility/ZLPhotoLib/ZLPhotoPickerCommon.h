@@ -1,0 +1,44 @@
+//
+//  ZLPhotoPickerCommon.h
+//  ZLAssetsPickerDemo
+//
+//  Created by 张磊 on 14-11-19.
+//  Copyright (c) 2014年 com.zixue101.www. All rights reserved.
+//
+
+#ifndef ZLAssetsPickerDemo_PickerCommon_h
+#define ZLAssetsPickerDemo_PickerCommon_h
+
+// 点击销毁的block
+typedef void(^ZLPickerBrowserViewControllerTapDisMissBlock)(NSInteger);
+
+// 点击View执行的动画
+typedef NS_ENUM(NSUInteger, UIViewAnimationAnimationStatus) {
+    UIViewAnimationAnimationStatusZoom = 0, // 放大缩小
+    UIViewAnimationAnimationStatusFade , // 淡入淡出
+};
+
+// 图片最多显示9张，超过9张取消单击事件
+static NSInteger const KPhotoShowMaxCount = 10;
+
+#define iOS7gt ([[UIDevice currentDevice].systemVersion doubleValue] >= 7.0)
+
+// ScrollView滑动的间距
+static CGFloat const ZLPickerColletionViewPadding = 20;
+
+// ScrollView拉伸的比例
+static CGFloat const ZLPickerScrollViewMaxZoomScale = 3.0;
+static CGFloat const ZLPickerScrollViewMinZoomScale = 1.0;
+
+// 进度条的宽度/高度
+static NSInteger const ZLPickerProgressViewW = 50;
+static NSInteger const ZLPickerProgressViewH = 50;
+
+// 分页控制器的高度
+static NSInteger const ZLPickerPageCtrlH = 25;
+
+// NSNotification
+static NSString *PICKER_TAKE_DONE = @"PICKER_TAKE_DONE";
+static NSString *PICKER_TAKE_PHOTO = @"PICKER_TAKE_PHOTO";
+
+#endif

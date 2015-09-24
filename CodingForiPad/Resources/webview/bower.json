@@ -1,0 +1,23 @@
+{
+  "name": "AppBubbleDetail",
+  "main": "index.js",
+  "version": "0.1.0",
+  "authors": [
+    "bluishoul <bluishoul@gmail.com>"
+  ],
+  "description": "Showing the Coding.net bubble content in iOS & Android apps",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "zepto": "*",
+    "jquery": "~2.1.1",
+    "highlightjs": "~8.0.0"
+  }
+}

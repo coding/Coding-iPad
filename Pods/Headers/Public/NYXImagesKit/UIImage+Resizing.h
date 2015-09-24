@@ -1,0 +1,1 @@
+../../../NYXImagesKit/Categories/UIImage+Resizing.h

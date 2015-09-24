@@ -1,0 +1,39 @@
+html,body{
+    font-family: '微软雅黑','Helvetica Neue',sans-serif,SimHei;
+    -webkit-font-smoothing: antialiased;
+    font-size: 17px;
+    margin: 0;
+    padding: 0;
+}
+.webview-detail h1 {
+    border-bottom: .5px solid #ddd;
+}
+.webview-detail h2 {
+    border-bottom: 0.5px solid #ddd;
+}
+.webview-detail hr {
+    border-top: .5px dashed #ddd;
+}
+.webview-detail img {
+    border: .5px solid #eee;
+}
+
+.webview-detail h1{
+    font-size: 20px;
+}
+
+.webview-detail h2{
+    font-size: 18px;
+}
+
+.webview-detail h3{
+    font-size: 16px;
+}
+
+.webview-detail h4{
+    font-size: 14px;
+}
+
+.webview-detail h5{
+    font-size: 14px;
+}

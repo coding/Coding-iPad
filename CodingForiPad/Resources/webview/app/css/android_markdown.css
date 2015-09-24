@@ -1,0 +1,39 @@
+html,body{
+    font-family: '微软雅黑','Helvetica Neue',sans-serif,SimHei;
+    -webkit-font-smoothing: antialiased;
+    font-size: 18px;
+    margin: 0;
+    padding: 0;
+}
+.webview-detail {
+    font-size: 0.875rem;
+}
+body {
+    margin: 0;
+    padding: 10px 0 0 0;
+    border-top: 1px solid #DDD;
+}
+.webview-detail h1{
+    line-height: 1.6rem;
+    font-size: 21px;
+}
+
+.webview-detail h2{
+    line-height: 1.4rem;
+    font-size: 20px;
+}
+
+.webview-detail h3{
+    line-height: 1.2rem;
+    font-size: 18px;
+}
+
+.webview-detail h4{
+    line-height: 1rem;
+    font-size: 16px;
+}
+
+.webview-detail h5{
+    line-height: 1rem;
+    font-size: 15px;
+}

@@ -1,0 +1,102 @@
+PODS:
+  - AFNetworkActivityLogger (2.0.4):
+    - AFNetworking/NSURLConnection (~> 2.0)
+    - AFNetworking/NSURLSession (~> 2.0)
+  - AFNetworking (2.5.4):
+    - AFNetworking/NSURLConnection (= 2.5.4)
+    - AFNetworking/NSURLSession (= 2.5.4)
+    - AFNetworking/Reachability (= 2.5.4)
+    - AFNetworking/Security (= 2.5.4)
+    - AFNetworking/Serialization (= 2.5.4)
+    - AFNetworking/UIKit (= 2.5.4)
+  - AFNetworking/NSURLConnection (2.5.4):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.5.4):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.5.4)
+  - AFNetworking/Security (2.5.4)
+  - AFNetworking/Serialization (2.5.4)
+  - AFNetworking/UIKit (2.5.4):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+  - BlocksKit (2.2.5):
+    - BlocksKit/All (= 2.2.5)
+  - BlocksKit/All (2.2.5):
+    - BlocksKit/Core
+    - BlocksKit/DynamicDelegate
+    - BlocksKit/MessageUI
+    - BlocksKit/UIKit
+  - BlocksKit/Core (2.2.5)
+  - BlocksKit/DynamicDelegate (2.2.5)
+  - BlocksKit/MessageUI (2.2.5):
+    - BlocksKit/Core
+    - BlocksKit/DynamicDelegate
+  - BlocksKit/UIKit (2.2.5):
+    - BlocksKit/Core
+    - BlocksKit/DynamicDelegate
+  - FontAwesome+iOS (0.1.4)
+  - hpple (0.2.0)
+  - KVOController (1.0.3)
+  - Mantle (2.0.2):
+    - Mantle/extobjc (= 2.0.2)
+  - Mantle/extobjc (2.0.2)
+  - Masonry (0.6.1)
+  - MMMarkdown (0.3)
+  - NYXImagesKit (2.3)
+  - PPiAwesomeButton (1.5.2):
+    - FontAwesome+iOS
+  - ReactiveCocoa (2.3.1):
+    - ReactiveCocoa/UI (= 2.3.1)
+  - ReactiveCocoa/Core (2.3.1):
+    - ReactiveCocoa/no-arc
+  - ReactiveCocoa/no-arc (2.3.1)
+  - ReactiveCocoa/UI (2.3.1):
+    - ReactiveCocoa/Core
+  - RegexKitLite (4.0)
+  - SSKeychain (1.2.3)
+  - SVProgressHUD (1.1.3)
+  - SVPullToRefresh (0.4.1)
+  - TTTAttributedLabel (1.13.3)
+
+DEPENDENCIES:
+  - AFNetworkActivityLogger
+  - AFNetworking
+  - BlocksKit (= 2.2.5)
+  - hpple
+  - KVOController
+  - Mantle
+  - Masonry (= 0.6.1)
+  - MMMarkdown (= 0.3)
+  - NYXImagesKit (= 2.3)
+  - PPiAwesomeButton
+  - ReactiveCocoa (= 2.3.1)
+  - RegexKitLite
+  - SSKeychain
+  - SVProgressHUD
+  - SVPullToRefresh
+  - TTTAttributedLabel
+
+SPEC CHECKSUMS:
+  AFNetworkActivityLogger: 121486778117d53b3ab1c61d264b88081d0c3eee
+  AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
+  BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
+  FontAwesome+iOS: 9070b682a9255ca0fdc34bcfb129ad0ba2b73b87
+  hpple: 3b765f96fc2cd56ad1a49aef6f7be5cb2aa64b57
+  KVOController: 9fd8f0343670994e4b6f9f0b31f5a45663f3e1cf
+  Mantle: 967fd31ea0220890b2e76589198996b534bb3fb1
+  Masonry: 4972309f2f134de9dd312f4dc4a21359b50e6caa
+  MMMarkdown: 13af1af50e5f476f1097797f43ea2bd76c83067a
+  NYXImagesKit: 8163e3335a40eaa173ca5bbbf81fafb57d3947eb
+  PPiAwesomeButton: 16f7279582fd36f65186b24b83ef876217363eb5
+  ReactiveCocoa: 334468a83b2c5f669f7cfb9a084415ee23219b4f
+  RegexKitLite: c0e4c12e6e7de0769f3a3ed679f0f61604170661
+  SSKeychain: 3f42991739c6c60a9cf1bbd4dff6c0d3694bcf3d
+  SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
+  SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
+  TTTAttributedLabel: 6f3174aef8e738f44dff97c2eb7d8184f6ab6277
+
+COCOAPODS: 0.37.2

@@ -1,0 +1,26 @@
+# Xcode
+build/*
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+!default.xcworkspace
+xcuserdata
+profile
+*.moved-aside
+.DS_Store
+.svn
+*.swp
+.data.html.swp
+*.pyc
+.data.html.swp
+*.sqlite
+.idea
+.Rhistory
+*.xccheckout
+*.xcscmblueprint
+Config.h
