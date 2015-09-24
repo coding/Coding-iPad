@@ -172,7 +172,7 @@
     [[CORootViewController currentRoot] handleNotificationInfo:userInfo applicationState:[application applicationState]];
 }
 
-- (NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
     return UIInterfaceOrientationMaskAll;
 }
 
