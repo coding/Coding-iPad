@@ -178,3 +178,6 @@ CODataResponse 是请求于模型之间的桥梁。CODataResponse 封装了整�
 
 # 好了，扬帆起航
 你可以专注于 UI 和交互了，去写一个牛闪闪的 Coding 客户端吧！
+
+#License
+[MIT](License)
