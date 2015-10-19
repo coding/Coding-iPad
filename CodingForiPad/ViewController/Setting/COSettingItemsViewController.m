@@ -11,7 +11,7 @@
 #import "CORootViewController.h"
 #import "COSettingPasswordController.h"
 
-#define kAppReviewURL   @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=923676989"
+#define kAppReviewURL   @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=1013704594"
 
 @interface COSettingItemsViewController () <UIActionSheetDelegate>
 
