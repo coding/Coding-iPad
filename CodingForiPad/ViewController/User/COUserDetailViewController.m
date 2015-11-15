@@ -386,6 +386,7 @@
 - (void)pickerViewControllerDoneAsstes:(NSArray *)assets
 {
     ZLPhotoAssets *imageInfo = assets[0];
+    ZLPhotoPickerBrowserPhoto *photo = [ZLPhotoPickerBrowserPhoto photoAnyImageObjWith:imageInfo];
 //    CGSize maxSize = CGSizeMake(800, 800);
 //    if (imageInfo.thumbImage.size.width > maxSize.width || imageInfo.thumbImage.size.height > maxSize.height) {
 //        imageInfo.thumbImage = [imageInfo.thumbImage scaleToSize:maxSize usingMode:NYXResizeModeAspectFit];
@@ -393,11 +394,11 @@
     [self showProgressHudWithMessage:@"正在上传头像"];
     __weak typeof(self) weakself = self;
     COAccountUpdateAvatarRequest *request = [COAccountUpdateAvatarRequest request];
-    [request uploadImage:imageInfo.thumbImage//TODO: 用不用原图
+    [request uploadImage:photo.thumbImage//TODO: 用不用原图
             successBlock:^(CODataResponse *responseObject) {
                       if ([weakself checkDataResponse:responseObject]) {
                           [weakself showSuccess:@"上传头像成功"];
-                          [weakself.avatar setImage:imageInfo.thumbImage];
+                          [weakself.avatar setImage:photo.thumbImage];
                           //TODO: 用户信息刷新？左边头像刷新
                           [[COSession session] updateUserInfo];
                       }

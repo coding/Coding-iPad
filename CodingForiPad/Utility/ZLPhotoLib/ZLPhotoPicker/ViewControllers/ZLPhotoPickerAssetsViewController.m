@@ -492,6 +492,14 @@ static NSString *const _identifier = @"toolBarThumbCollectionViewCell";
     self.makeView.text = [NSString stringWithFormat:@"%ld",(unsigned long)self.selectAssets.count];
 }
 
+#pragma mark - UIImagePickerControllerDelegate
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
 #pragma mark -<Navigation Actions>
 #pragma mark -开启异步通知
 - (void)back

@@ -4,6 +4,9 @@
 
 #import "COUser.h"
 
+#define NSUINT_BIT (CHAR_BIT * sizeof(NSUInteger))
+#define NSUINTROTATE(val, howmuch) ((((NSUInteger)val) << howmuch) | (((NSUInteger)val) >> (NSUINT_BIT - howmuch)))
+
 @implementation COUser
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
@@ -63,6 +66,38 @@
     CFStringTransform((CFMutableStringRef)tempString, NULL, kCFStringTransformToLatin, false);
     tempString = (NSMutableString *)[tempString stringByFoldingWithOptions:NSDiacriticInsensitiveSearch locale:[NSLocale currentLocale]];
     return [tempString uppercaseString];
+}
+
+- (BOOL)isEqualToCOUser:(COUser *)user
+{
+    if (!user) {
+        return NO;
+    }
+    return (self.userId == user.userId) &&
+    ((!self.email && !user.email) || [self.email isEqualToString:user.email]) &&
+    ((!self.avatar && !user.avatar) || [self.avatar isEqualToString:user.avatar]) &&
+    ((self.lastActivityAt - user.lastActivityAt) < 0.000001) &&
+    ((self.updatedAt - user.updatedAt) < 0.000001);
+}
+
+- (BOOL)isEqual:(id)object
+{
+    if (self == object) {
+        return YES;
+    }
+    if (![object isKindOfClass:[COUser class]]) {
+        return NO;
+    }
+    return [self isEqualToCOUser:(COUser *)object];
+}
+
+- (NSUInteger)hash
+{
+    return NSUINTROTATE([[NSNumber numberWithInteger:_userId] hash], NSUINT_BIT / 2) ^
+    NSUINTROTATE([_email hash], NSUINT_BIT / 4) ^
+    NSUINTROTATE([_avatar hash], NSUINT_BIT / 8) ^
+    NSUINTROTATE([[NSNumber numberWithDouble:_lastActivityAt] hash], NSUINT_BIT / 16) ^
+    NSUINTROTATE([[NSNumber numberWithDouble:_updatedAt] hash], NSUINT_BIT / 32);
 }
 
 @end

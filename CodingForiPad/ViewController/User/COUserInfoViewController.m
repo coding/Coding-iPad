@@ -63,6 +63,7 @@
     
     [_backImageView setImage:[StartImagesManager shareManager].curImage.image];
     
+    
     [self assignWithUser:_user];
     
     if (_user.userId == [COSession session].user.userId) {
@@ -154,6 +155,9 @@
     [request getWithSuccess:^(CODataResponse *responseObject) {
         if ([weakself checkDataResponse:responseObject]) {
             [weakself showUser:responseObject.data];
+            if (![[COSession session].user isEqual:responseObject.data] && ((COUser *)responseObject.data).userId == [COSession session].user.userId) {
+                [[COSession session] updateUserInfo];
+            }
         }
     } failure:^(NSError *error) {
         [weakself showErrorInHudWithError:error];
