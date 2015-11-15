@@ -60,6 +60,10 @@
     _iconBtn.imageView.layer.borderColor = [UIColor whiteColor].CGColor;
  
     self.tableView.separatorInset = UIEdgeInsetsMake(0.0, 40.0, 0.0, 0.0);
+    self.tableView.alwaysBounceHorizontal = NO;
+    self.tableView.alwaysBounceVertical   = NO;
+    _watchBtn.hidden                      = YES;
+    _watchedBtn.hidden                    = YES;
     
     [_backImageView setImage:[StartImagesManager shareManager].curImage.image];
     
