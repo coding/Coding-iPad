@@ -52,7 +52,7 @@
 
 - (void)loadData
 {
-    COProjectsRequest *request = [COProjectsRequest alloc];
+    COProjectsRequest *request = [COProjectsRequest request];
     request.type = @"all";
     request.sort = @"hot";
     request.page = 1;// 增加页面呢
@@ -70,6 +70,10 @@
 
 - (void)showData:(NSArray *)data
 {
+    data = [data filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isPublic == %d", NO]];
+    if (data.count <= 0) {
+        return;
+    }
     self.originData = [NSMutableArray arrayWithArray:data];
     // 页面判断
     [self.data addObjectsFromArray:data];
