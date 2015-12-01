@@ -448,13 +448,24 @@
         
         // 保存原图片到相册中
         if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
+            SEL selectorToCall = @selector(imageWasSavedSuccessfully:didFinishSavingWithError:contextInfo:);
             UIImage *originalImage = [info objectForKey:UIImagePickerControllerOriginalImage];
-            UIImageWriteToSavedPhotosAlbum(originalImage, self, nil, NULL);
+            UIImageWriteToSavedPhotosAlbum(originalImage, self, selectorToCall, NULL);
         }
         
         [picker dismissViewControllerAnimated:YES completion:nil];
     } else {
         NSLog(@"请在真机使用!");
+    }
+}
+
+#pragma mark - save image
+
+- (void) imageWasSavedSuccessfully:(UIImage *)paramImage didFinishSavingWithError:(NSError *)paramError contextInfo:(void *)paramContextInfo{
+    if (paramError == nil){
+        [self showSuccess:@"成功保存到相册"];
+    } else {
+        [self showErrorWithStatus:@"保存失败"];
     }
 }
 

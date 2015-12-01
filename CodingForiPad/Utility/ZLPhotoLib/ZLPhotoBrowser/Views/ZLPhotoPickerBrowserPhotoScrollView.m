@@ -11,6 +11,7 @@
 #import "UIImageView+WebCache.h"
 #import "DACircularProgressView.h"
 #import "ZLPhotoPickerCommon.h"
+#import "SVProgressHUD.h"
 
 // Private methods and properties
 @interface ZLPhotoPickerBrowserPhotoScrollView ()<UIActionSheetDelegate> {
@@ -97,7 +98,8 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0){
-        UIImageWriteToSavedPhotosAlbum(_photoImageView.image, nil, nil, nil);
+        SEL selectorToCall = @selector(imageWasSavedSuccessfully:didFinishSavingWithError:contextInfo:);
+        UIImageWriteToSavedPhotosAlbum(_photoImageView.image, self, selectorToCall, nil);
     }
 }
 
@@ -422,6 +424,14 @@
     touchX += self.contentOffset.x;
     touchY += self.contentOffset.y;
     [self handleDoubleTap:CGPointMake(touchX, touchY)];
+}
+
+- (void) imageWasSavedSuccessfully:(UIImage *)paramImage didFinishSavingWithError:(NSError *)paramError contextInfo:(void *)paramContextInfo{
+    if (paramError == nil){
+        [SVProgressHUD showSuccessWithStatus:@"成功保存到相册"];
+    } else {
+        [SVProgressHUD showErrorWithStatus:@"保存失败"];
+    }
 }
 
 @end
