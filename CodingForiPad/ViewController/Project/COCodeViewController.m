@@ -37,7 +37,7 @@
 
     self.filterLabel.text = self.ref;
     
-    [self loadData];
+    [self loadRefData];
     
     [self setUpRefresh:self.tableView];
     
@@ -58,12 +58,32 @@
 #pragma mark - Data
 - (void)reloadData
 {
-    [self loadData];
+    [self loadRefData];
 }
 
 - (void)refresh
 {
-    [self loadData];
+    [self loadRefData];
+}
+
+- (void)loadRefData
+{
+    COGitListBranchesRequest *request = [COGitListBranchesRequest request];
+    request.backendProjectPath = self.backendProjectPath;
+    
+    __weak typeof(self) weakself = self;
+    [request getWithSuccess:^(CODataResponse *responseObject) {
+        [weakself.refreshCtrl endRefreshing];
+        if ([weakself checkDataResponse:responseObject]) {
+            [weakself handleRefData:responseObject.data];
+        }
+    } failure:^(NSError *error) {
+        [weakself.refreshCtrl endRefreshing];
+        //        [weakself showErrorInHudWithError:error];
+        [weakself showErrorReloadView:^{
+            [weakself loadRefData];
+        } padding:UIEdgeInsetsMake(44.0, 0.0, 0.0, 0.0)];
+    }];
 }
 
 - (void)loadData
@@ -87,6 +107,36 @@
             [weakself loadData];
         } padding:UIEdgeInsetsMake(44.0, 0.0, 0.0, 0.0)];
     }];
+}
+
+- (void)handleRefData:(NSArray *)branches
+{
+    if (!branches || branches.count == 0) {
+        [self showErrorWithStatus:@"git 仓库没有提交"];
+        self.filterLabel.text = @"";
+        return;
+    } else if (branches.count == 1) {
+        NSString *ref = ((COGitBranch *)branches[0]).name;
+        self.ref = ref;
+        self.filterLabel.text = ref;
+    } else {
+        COGitBranch *defaultBranch;
+        for (COGitBranch *branch in branches) {
+            if (branch.isDefaultBranch) {
+                defaultBranch = branch;
+                break;
+            }
+        }
+        NSString *ref;
+        if (defaultBranch) {
+           ref = defaultBranch.name;
+        } else {
+            ref = ((COGitBranch *)branches[0]).name;
+        }
+        self.ref = ref;
+        self.filterLabel.text = ref;
+    }
+    [self loadData];
 }
 
 - (void)showData:(COGitTreeInfo *)data
@@ -169,7 +219,7 @@
     if (self.maskView == nil) {
         self.maskView = [[UIButton alloc] initWithFrame:self.view.bounds];
         _maskView.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.4];
-        [_maskView addTarget:self action:@selector(dismissBtnAction) forControlEvents:UIControlEventTouchUpInside];
+        [_maskView addTarget:self action:@selector(dismissPopover) forControlEvents:UIControlEventTouchUpInside];
     }
     
     CGRect frame = CGRectMake(0, _maskView.frame.size.height - 350 - 48, _maskView.frame.size.width, 350);
