@@ -159,6 +159,13 @@
     [self updateUserStatus:COSessionUserStatusLogout];
     
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    
+    NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
+    [cookies enumerateObjectsUsingBlock:^(NSHTTPCookie *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj.domain hasSuffix:@".coding.net"]) {
+             [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:obj];
+        }
+   }];
 }
 
 - (void)loginSuccess:(CODataResponse *)response
