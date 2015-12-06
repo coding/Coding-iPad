@@ -252,7 +252,8 @@
     // 上传照片
     if (assets.count > 0) {
         ZLPhotoAssets *imageInfo = assets[0];
-        [self doUploadPhoto:imageInfo.originImage];
+        ZLPhotoPickerBrowserPhoto *photo = [ZLPhotoPickerBrowserPhoto photoAnyImageObjWith:imageInfo];
+        [self doUploadPhoto:photo.photoImage];
     }
 }
 
@@ -272,7 +273,8 @@
 
     // 保存原图片到相册中
     if (picker.sourceType == UIImagePickerControllerSourceTypeCamera && originalImage) {
-        UIImageWriteToSavedPhotosAlbum(originalImage, self, nil, NULL);
+        SEL selectorToCall = @selector(imageWasSavedSuccessfully:didFinishSavingWithError:contextInfo:);
+        UIImageWriteToSavedPhotosAlbum(originalImage, self, selectorToCall, NULL);
     }
 
     // 上传照片
@@ -333,6 +335,16 @@
         NSString *photoLinkStr = [NSString stringWithFormat:[self needPreNewLine]? @"\n![图片](%@)\n": @"![图片](%@)\n", fileUrlStr];
         [self insertText:photoLinkStr];
         [self becomeFirstResponder];
+    }
+}
+
+#pragma mark - save image
+
+- (void) imageWasSavedSuccessfully:(UIImage *)paramImage didFinishSavingWithError:(NSError *)paramError contextInfo:(void *)paramContextInfo{
+    if (paramError == nil){
+        [SVProgressHUD showSuccessWithStatus:@"成功保存到相册"];
+    } else {
+        [SVProgressHUD showErrorWithStatus:@"保存失败"];
     }
 }
 

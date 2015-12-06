@@ -11,10 +11,12 @@
 #import "COUtility.h"
 #import "ImageSizeManager.h"
 #import "COTweetViewController.h"
+#import "View+MASAdditions.h"
 
 @interface COTweetImageCell()
 
 @property (nonatomic, strong) NSString *url;
+@property (strong, nonatomic) UIImageView *gifMarkView;
 
 @end
 
@@ -53,6 +55,24 @@
                     // TODO: reload cell
                     [[NSNotificationCenter defaultCenter] postNotificationName:COTweetImageResizeNotification object:nil];
                 }
+            }
+            
+            if ([imageUrl rangeOfString:@".gif"].location != NSNotFound) {
+                if (!_gifMarkView) {
+                    _gifMarkView = ({
+                        UIImageView *imgView = [UIImageView new];
+                        imgView.image = [UIImage imageNamed:@"gif_mark"];
+                        [self.imageView addSubview:imgView];
+                        [imgView mas_makeConstraints:^(MASConstraintMaker *make) {
+                            make.size.mas_equalTo(CGSizeMake(24, 13));
+                            make.right.bottom.equalTo(self.imageView).offset(0);
+                        }];
+                        imgView;
+                    });
+                }
+                self.gifMarkView.hidden = NO;
+            }else{
+                self.gifMarkView.hidden = YES;
             }
         }
     }];

@@ -36,7 +36,8 @@
 - (void)projectReload:(NSNotification *)n
 {
     self.rightView.hidden = YES;
-    [[CORootViewController currentRoot] changeBackground:[UIImage imageNamed:@"background_project"] full:NO];
+//    [[CORootViewController currentRoot] changeBackground:[UIImage imageNamed:@"background_project"] full:NO];
+    [[CORootViewController currentRoot].projectBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
     [self.rightNav popToRootViewControllerAnimated:NO];
     [self.listController reloadProject];
 }

@@ -60,8 +60,13 @@
     _iconBtn.imageView.layer.borderColor = [UIColor whiteColor].CGColor;
  
     self.tableView.separatorInset = UIEdgeInsetsMake(0.0, 40.0, 0.0, 0.0);
+    self.tableView.alwaysBounceHorizontal = NO;
+    self.tableView.alwaysBounceVertical   = NO;
+    _watchBtn.hidden                      = YES;
+    _watchedBtn.hidden                    = YES;
     
     [_backImageView setImage:[StartImagesManager shareManager].curImage.image];
+    
     
     [self assignWithUser:_user];
     
@@ -154,6 +159,9 @@
     [request getWithSuccess:^(CODataResponse *responseObject) {
         if ([weakself checkDataResponse:responseObject]) {
             [weakself showUser:responseObject.data];
+            if (![[COSession session].user isEqual:responseObject.data] && ((COUser *)responseObject.data).userId == [COSession session].user.userId) {
+                [[COSession session] updateUserInfo];
+            }
         }
     } failure:^(NSError *error) {
         [weakself showErrorInHudWithError:error];

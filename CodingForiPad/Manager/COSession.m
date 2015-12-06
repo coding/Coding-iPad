@@ -73,6 +73,10 @@
                 // 二次认证
                 NSString *msg = [response displayMsg];
                 error = [NSError errorWithDomain:@"net.coding.ipad" code:OPErrorCodeNeedAuthCode userInfo:@{NSLocalizedDescriptionKey: msg, NSLocalizedFailureReasonErrorKey : msg}];
+            } else if (response.msg[@"email"] || response.msg[@"j_captcha_error"]) {
+                // 用户名密码、验证码
+                NSString *msg = [response displayMsg];
+                error = [NSError errorWithDomain:@"net.coding.ipad" code:response.code userInfo:@{NSLocalizedDescriptionKey: msg, NSLocalizedFailureReasonErrorKey : msg}];
             }
         }
         else {
@@ -155,6 +159,13 @@
     [self updateUserStatus:COSessionUserStatusLogout];
     
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    
+    NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
+    [cookies enumerateObjectsUsingBlock:^(NSHTTPCookie *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj.domain hasSuffix:@".coding.net"]) {
+             [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:obj];
+        }
+   }];
 }
 
 - (void)loginSuccess:(CODataResponse *)response
