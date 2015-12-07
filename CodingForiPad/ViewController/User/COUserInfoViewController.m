@@ -164,7 +164,8 @@
             }
         }
     } failure:^(NSError *error) {
-        [weakself showErrorInHudWithError:error];
+//        [weakself showErrorInHudWithError:error];
+        [weakself showUser:[COSession session].user];
     }];
 }
 
