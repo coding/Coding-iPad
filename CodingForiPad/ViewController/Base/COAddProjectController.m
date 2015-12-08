@@ -175,7 +175,7 @@
             if ([weakself checkDataResponse:responseObject]) {
                 [weakself showSuccess:@"项目创建成功~"];
                 [[CORootViewController currentRoot] dismissPopover];
-                [[NSNotificationCenter defaultCenter] postNotificationName:OPProjectReloadNotification object:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:OPProjectReloadNotification object:nil userInfo:@{@"data":responseObject.data}];
             }
         });
     } failure:^(NSError *error) {
