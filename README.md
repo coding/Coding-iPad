@@ -1,4 +1,4 @@
-#Coding-iPad客户端说明[(GitHub 地址)](https://github.com/Coding/Coding-iPad.git)
+#Coding-iPad客户端说明
 ## Just run it！
 想要看看 iPad 版本什么样，没问题！ clone 或者下载代码后，初次执行时，双击根目录下的 **bootstrap** 脚本，该脚本会准备初始数据，完成后会打开工程，点击 Xcode 运行！So easy，妈妈再也不用担心我的代码编译出错了！（之后只需打开 CodingForiPad.xcworkspace 即可）
 
