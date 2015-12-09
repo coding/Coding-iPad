@@ -6,6 +6,8 @@
 //  Copyright (c) 2015年 coding. All rights reserved.
 //
 
+#define kRegisterChannel @"coding-ipad"
+
 #import "COAccountRequest.h"
 
 @implementation COAccountCheckRequest
@@ -25,6 +27,15 @@
 
 @implementation COAccountRegisterRequest
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _channel = kRegisterChannel;
+    }
+    return self;
+}
+
 - (void)prepareForRequest
 {
     self.path = @"/account/register";
@@ -35,6 +46,7 @@
              @"email" : @"email",
              @"globalKey" : @"global_key",
              @"jCaptcha" : @"j_captcha",
+             @"channel" : @"channel",
              };
 }
 

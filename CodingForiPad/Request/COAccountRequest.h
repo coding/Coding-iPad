@@ -21,6 +21,7 @@
 @property (nonatomic, copy) COFormParameters NSString *email;
 @property (nonatomic, copy) COFormParameters NSString *globalKey;
 @property (nonatomic, copy) COFormParameters NSString *jCaptcha;
+@property (nonatomic, copy, readonly) COFormParameters NSString *channel;
 
 @end
 
