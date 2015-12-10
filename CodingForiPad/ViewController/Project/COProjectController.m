@@ -11,6 +11,7 @@
 #import "COProjectListController.h"
 #import "CORootViewController.h"
 #import <RegexKitLite.h>
+#import "COProjectRequest.h"
 
 @interface COProjectController ()<CORootBackgroudProtocol>
 
@@ -53,10 +54,20 @@
                 curPro.ownerUserName = user_global_key;
                 curPro.name = project_name;
                 [self showProject:curPro];
+                
+                COProjectDetailRequest *request = [COProjectDetailRequest request];
+                request.projectName = project_name;
+                request.projectOwnerName = user_global_key;
+                __weak typeof(self) weakself = self;
+                [request getWithSuccess:^(CODataResponse *responseObject) {
+                    if ([weakself checkDataResponse:responseObject]) {
+                        COProject *project = responseObject.data;
+                        [self.listController reloadProject:project.projectId];
+                    }
+                } failure:^(NSError *error) {}];
             }
         }
     }
-    [self.listController reloadProject];
 }
 
 - (void)didReceiveMemoryWarning {

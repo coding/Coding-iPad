@@ -15,5 +15,6 @@
 @property (nonatomic, strong) COUser *user;
 
 - (void)reloadProject;
+- (void)reloadProject:(NSInteger)selectProjectID;
 
 @end

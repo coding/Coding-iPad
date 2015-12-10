@@ -154,6 +154,13 @@
     [self loadData];
 }
 
+- (void)reloadProject:(NSInteger)selectProjectID
+{
+    self.selectProjectID = selectProjectID;
+    self.data = [NSMutableDictionary dictionary];
+    [self loadData];
+}
+
 - (void)reloadProject
 {
     self.data = [NSMutableDictionary dictionary];
