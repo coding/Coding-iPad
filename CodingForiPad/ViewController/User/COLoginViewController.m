@@ -17,6 +17,10 @@
 
 #define kCOCaptchaHeight 50.0
 
+#define kCOLoginViewHeight CGRectGetHeight(self.view.frame)
+#define kCOLoginPopHeight CGRectGetHeight(self.loginView.frame)
+#define kCOLoginShowOffset ((kCOLoginViewHeight - kCOLoginPopHeight)/2)
+
 @interface COLoginViewController ()<UIGestureRecognizerDelegate>
 
 @property (nonatomic, assign) BOOL needCaptcha;
@@ -69,6 +73,12 @@
         [self.findCodeImageView addGestureRecognizer:tap];
         self.findCodeImageView.userInteractionEnabled = YES;
     }
+    
+    self.loginViewOffset.constant =
+    self.registerViewOffset.constant =
+    self.authViewOffset.constant =
+    self.findViewOffset.constant = kCOLoginShowOffset;
+    [self.view layoutIfNeeded];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -378,8 +388,13 @@
 
 - (IBAction)showServiceAction:(id)sender
 {
+    [self.view endEditing:YES];
+    
+    CGSize viewSize = self.view.bounds.size;
+    CGSize serviceSize = CGSizeMake(viewSize.width * 0.5, viewSize.height * 0.7);
+    
     CORegServiceViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"CORegServiceViewController"];
-    controller.view.frame = CGRectMake(162.0, 768.0, 700.0, 650.0);
+    controller.view.frame = CGRectMake((viewSize.width - serviceSize.width) /2, viewSize.height, serviceSize.width, serviceSize.height);
     controller.view.layer.cornerRadius = 4.0;
     controller.view.layer.masksToBounds = YES;
     
@@ -387,7 +402,7 @@
     [self addChildViewController:controller];
     
     [UIView animateWithDuration:0.3 animations:^{
-        controller.view.frame = CGRectMake(162.0, 118.0, 700.0, 650.0);
+        controller.view.center = self.view.center;
     }];
 }
 
@@ -462,26 +477,27 @@
 - (IBAction)changeToRegist:(id)sender
 {
     [self.view endEditing:YES];
-    self.registerViewOffset.constant = 768;
+    self.registerViewOffset.constant = kCOLoginViewHeight;
     [self.view layoutIfNeeded];
+    
     self.registerView.hidden = NO;
     
     if (self.state == COLoginStateAuth) {
-        self.authViewOffset.constant = -450;
+        self.authViewOffset.constant = -kCOLoginPopHeight;
     }
     else if (self.state == COLoginStateLogin) {
-        self.loginViewOffset.constant = -450;
+        self.loginViewOffset.constant = -kCOLoginPopHeight;
     }
     
-    self.registerViewOffset.constant = 164;
+    self.registerViewOffset.constant = kCOLoginShowOffset;
     
     [UIView animateWithDuration:0.3 delay:0.1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         [self.view layoutIfNeeded];
     } completion:^(BOOL finished) {
         self.loginView.hidden = YES;
-        self.loginViewOffset.constant = 164;
+        self.loginViewOffset.constant = kCOLoginShowOffset;
         self.authView.hidden = YES;
-        self.authViewOffset.constant = 164;
+        self.authViewOffset.constant = kCOLoginShowOffset;
         [self requestRegCaptcha];
         [self updateState:COLoginStateRegister];
     }];
@@ -490,18 +506,20 @@
 // 登录
 - (IBAction)changeToLogin:(id)sender
 {
+
+    
     [self.view endEditing:YES];
-    self.loginViewOffset.constant = -450;
+    self.loginViewOffset.constant = -kCOLoginPopHeight;
     [self.view layoutIfNeeded];
     self.loginView.hidden = NO;
-    self.loginViewOffset.constant = 164;
-    self.registerViewOffset.constant = 768;
+    self.loginViewOffset.constant = kCOLoginShowOffset;
+    self.registerViewOffset.constant = kCOLoginViewHeight;
     
     [UIView animateWithDuration:0.3 delay:0.1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         [self.view layoutIfNeeded];
     } completion:^(BOOL finished) {
         self.registerView.hidden = YES;
-        self.registerViewOffset.constant = 164;
+        self.registerViewOffset.constant = kCOLoginShowOffset;
         [self requestCaptcha];
         [self updateState:COLoginStateLogin];
     }];
@@ -701,10 +719,10 @@
 {
     double duration = [[notification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     UIViewAnimationOptions curve = [[notification.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] unsignedIntegerValue];
-    self.loginViewOffset.constant = 164.0;
-    self.registerViewOffset.constant = 164.0;
-    self.authViewOffset.constant = 164.0;
-    self.findViewOffset.constant = 164.0;
+    self.loginViewOffset.constant =
+    self.registerViewOffset.constant =
+    self.authViewOffset.constant =
+    self.findViewOffset.constant = kCOLoginShowOffset;
     [UIView animateWithDuration:duration delay:0.0 options:curve animations:^{
         [self.view layoutIfNeeded];
     } completion:^(BOOL finished) {
