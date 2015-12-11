@@ -88,6 +88,7 @@
 //    [self.refreshCtrl beginRefreshing];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(projectReload:) name:OPProjectListReloadNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadProject) name:OPProjectReloadNotification object:nil];
 }
 
 - (void)projectReload:(NSNotification *)n
