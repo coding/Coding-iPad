@@ -171,7 +171,7 @@
     [_userIconView sd_setImageWithURL:[COUtility urlForImage:_curTopic.owner.avatar] placeholderImage:[COUtility placeHolder]];
     [_userIconView setY:curBottomY];
     [_timeLabel setY:curBottomY];
-    _timeLabel.text = [NSString stringWithFormat:@"%@    发布于 %@", _curTopic.owner.name, [COUtility timestampToBefore:_curTopic.createdAt * 1000]];
+    _timeLabel.text = [NSString stringWithFormat:@"%@    发布于 %@", _curTopic.owner.name, [COUtility timestampToBefore:_curTopic.createdAt]];
 
     curBottomY += 30 + 9;
     

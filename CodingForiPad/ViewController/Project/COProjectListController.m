@@ -88,6 +88,7 @@
 //    [self.refreshCtrl beginRefreshing];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(projectReload:) name:OPProjectListReloadNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadProject) name:OPProjectReloadNotification object:nil];
 }
 
 - (void)projectReload:(NSNotification *)n
@@ -151,6 +152,13 @@
 {
     COProjectController *controller = (COProjectController *)self.parentViewController;
     [controller showProject:nil];
+    [self loadData];
+}
+
+- (void)reloadProject:(NSInteger)selectProjectID
+{
+    self.selectProjectID = selectProjectID;
+    self.data = [NSMutableDictionary dictionary];
     [self loadData];
 }
 

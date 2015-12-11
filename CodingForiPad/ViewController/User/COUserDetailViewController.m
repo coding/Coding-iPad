@@ -386,6 +386,7 @@
 - (void)pickerViewControllerDoneAsstes:(NSArray *)assets
 {
     ZLPhotoAssets *imageInfo = assets[0];
+    ZLPhotoPickerBrowserPhoto *photo = [ZLPhotoPickerBrowserPhoto photoAnyImageObjWith:imageInfo];
 //    CGSize maxSize = CGSizeMake(800, 800);
 //    if (imageInfo.thumbImage.size.width > maxSize.width || imageInfo.thumbImage.size.height > maxSize.height) {
 //        imageInfo.thumbImage = [imageInfo.thumbImage scaleToSize:maxSize usingMode:NYXResizeModeAspectFit];
@@ -393,11 +394,11 @@
     [self showProgressHudWithMessage:@"正在上传头像"];
     __weak typeof(self) weakself = self;
     COAccountUpdateAvatarRequest *request = [COAccountUpdateAvatarRequest request];
-    [request uploadImage:imageInfo.thumbImage//TODO: 用不用原图
+    [request uploadImage:photo.thumbImage//TODO: 用不用原图
             successBlock:^(CODataResponse *responseObject) {
                       if ([weakself checkDataResponse:responseObject]) {
                           [weakself showSuccess:@"上传头像成功"];
-                          [weakself.avatar setImage:imageInfo.thumbImage];
+                          [weakself.avatar setImage:photo.thumbImage];
                           //TODO: 用户信息刷新？左边头像刷新
                           [[COSession session] updateUserInfo];
                       }
@@ -447,13 +448,24 @@
         
         // 保存原图片到相册中
         if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
+            SEL selectorToCall = @selector(imageWasSavedSuccessfully:didFinishSavingWithError:contextInfo:);
             UIImage *originalImage = [info objectForKey:UIImagePickerControllerOriginalImage];
-            UIImageWriteToSavedPhotosAlbum(originalImage, self, nil, NULL);
+            UIImageWriteToSavedPhotosAlbum(originalImage, self, selectorToCall, NULL);
         }
         
         [picker dismissViewControllerAnimated:YES completion:nil];
     } else {
         NSLog(@"请在真机使用!");
+    }
+}
+
+#pragma mark - save image
+
+- (void) imageWasSavedSuccessfully:(UIImage *)paramImage didFinishSavingWithError:(NSError *)paramError contextInfo:(void *)paramContextInfo{
+    if (paramError == nil){
+        [self showSuccess:@"成功保存到相册"];
+    } else {
+        [self showErrorWithStatus:@"保存失败"];
     }
 }
 

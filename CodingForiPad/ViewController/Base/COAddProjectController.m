@@ -175,7 +175,7 @@
             if ([weakself checkDataResponse:responseObject]) {
                 [weakself showSuccess:@"项目创建成功~"];
                 [[CORootViewController currentRoot] dismissPopover];
-                [[NSNotificationCenter defaultCenter] postNotificationName:OPProjectReloadNotification object:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:OPProjectReloadNotification object:nil userInfo:@{@"data":responseObject.data}];
             }
         });
     } failure:^(NSError *error) {
@@ -232,11 +232,22 @@
         
         // 保存原图片到相册中
         if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
-            UIImageWriteToSavedPhotosAlbum(originalImage, self, nil, NULL);
+            SEL selectorToCall = @selector(imageWasSavedSuccessfully:didFinishSavingWithError:contextInfo:);
+            UIImageWriteToSavedPhotosAlbum(originalImage, self, selectorToCall, NULL);
         }
         [picker dismissViewControllerAnimated:YES completion:nil];
     } else {
         NSLog(@"请在真机使用!");
+    }
+}
+
+#pragma mark - save image
+
+- (void) imageWasSavedSuccessfully:(UIImage *)paramImage didFinishSavingWithError:(NSError *)paramError contextInfo:(void *)paramContextInfo{
+    if (paramError == nil){
+        [self showSuccess:@"成功保存到相册"];
+    } else {
+        [self showErrorWithStatus:@"保存失败"];
     }
 }
 

@@ -77,8 +77,7 @@ static CORootViewController *rootController = nil;
     self.userBtn.layer.masksToBounds = YES;
     self.userBtn.layer.cornerRadius = 25.0;
     
-    NSString *url = [COSession session].user.avatar;
-    [self.userBtn sd_setImageWithURL:[COUtility urlForImage:url] forState:UIControlStateNormal placeholderImage:[COUtility placeHolder]];
+    [[COSession session] updateUserInfo];
     
     [self.KVOController observe:[COSession session] keyPath:@"user" options:NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
         NSString *url = [COSession session].user.avatar;

@@ -63,6 +63,7 @@
                                   self.lastId = [self currentLastId];
                                   NSMutableArray *typeData = self.data[self.type];
                                   if (typeData) {
+                                      [self removeEmptyView];
                                       [self.tableView reloadData];
                                   }
                                   else {
@@ -177,8 +178,11 @@
 {
     if ([data count] == 0) {
         self.tableView.infiniteScrollingView.enabled = NO;
+        [self.tableView reloadData];
+        [self showEmptyView];
         return;
     }
+    [self removeEmptyView];
     
     // TODO: 返回数据条目
     if ([data count] < 20) {
@@ -201,6 +205,27 @@
     [typeData addObjectsFromArray:[self parseData:data]];
     
     [self.tableView reloadData];
+}
+
+- (void)showEmptyView
+{
+    [COEmptyView removeFormView:self.view];
+    COEmptyView *view;
+    if ([@"task" isEqualToString:self.type]) {
+        view = [COEmptyView emptyViewForTask];
+    } else if ([@"topic" isEqualToString:self.type]) {
+        view = [COEmptyView commonEmptyView];
+    } else if ([@"file" isEqualToString:self.type]) {
+        view = [COEmptyView emptyViewWithImage:[UIImage imageNamed:@"blankpage_image_Sleep"] andTips:@"这里怎么空空的\n发个文档让需求更清晰吧"];
+    } else {
+        view = [COEmptyView emptyViewWithImage:[UIImage imageNamed:@"blankpage_image_Sleep"] andTips:@"这里怎么空空的\n快让这里更热闹吧"];
+    }
+    [view showInView:self.view padding:UIEdgeInsetsMake(100.0, 0.0, 0.0, 0.0)];
+}
+
+- (void)removeEmptyView
+{
+    [COEmptyView removeFormView:self.view];
 }
 
 - (NSNumber *)currentLastId

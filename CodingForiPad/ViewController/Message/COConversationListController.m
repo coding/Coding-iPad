@@ -90,6 +90,9 @@
     
     [self.KVOController observe:[COUnReadCountManager manager] keyPath:@"messageCount" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(id observer, COUnReadCountManager *object, NSDictionary *change) {
         self.msgCountView.hidden = object.messageCount == 0 ? YES : NO;
+    }];
+    
+    [self.KVOController observe:[COUnReadCountManager manager] keyPath:@"notificationCount" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(id observer, COUnReadCountManager *object, NSDictionary *change) {
         self.notifCountView.hidden = object.notificationCount == 0 ? YES : NO;
     }];
     
@@ -164,6 +167,7 @@
             && responseObject.code == 0) {
             // TODO:  show data
             [weakself reloadNotification:responseObject.data];
+            [[COUnReadCountManager manager] updateCount];
         }
     } failure:^(NSError *error) {
         [weakself stopHud];
@@ -184,6 +188,7 @@
             && responseObject.code == 0) {
             // TODO:  show data
             [weakself reloadConversation:responseObject.data];
+            [[COUnReadCountManager manager] updateCount];
         }
     } failure:^(NSError *error) {
         [weakself stopHud];

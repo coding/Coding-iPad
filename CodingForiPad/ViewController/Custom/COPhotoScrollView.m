@@ -9,6 +9,7 @@
 #import "COPhotoScrollView.h"
 #import "ZLPhoto.h"
 #import "UIButton+WebCache.h"
+#import "SVProgressHUD.h"
 
 #define kPhotoBtnSpeace 20
 
@@ -220,7 +221,8 @@
         
         // 保存原图片到相册中
         if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
-            UIImageWriteToSavedPhotosAlbum(originalImage, self, nil, NULL);
+            SEL selectorToCall = @selector(imageWasSavedSuccessfully:didFinishSavingWithError:contextInfo:);
+            UIImageWriteToSavedPhotosAlbum(originalImage, self, selectorToCall, NULL);
         }
         [picker dismissViewControllerAnimated:YES completion:nil];
     } else {
@@ -260,6 +262,16 @@
     ZLPhotoPickerBrowserPhoto *photo = [ZLPhotoPickerBrowserPhoto photoAnyImageObjWith:imageInfo];
     photo.toView = btn;
     return photo;
+}
+
+#pragma mark - save image
+
+- (void) imageWasSavedSuccessfully:(UIImage *)paramImage didFinishSavingWithError:(NSError *)paramError contextInfo:(void *)paramContextInfo{
+    if (paramError == nil){
+        [SVProgressHUD showSuccessWithStatus:@"成功保存到相册"];
+    } else {
+        [SVProgressHUD showErrorWithStatus:@"保存失败"];
+    }
 }
 
 @end

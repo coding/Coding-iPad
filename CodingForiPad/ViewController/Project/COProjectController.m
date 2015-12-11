@@ -10,6 +10,8 @@
 #import "COProjectDetailController.h"
 #import "COProjectListController.h"
 #import "CORootViewController.h"
+#import <RegexKitLite.h>
+#import "COProjectRequest.h"
 
 @interface COProjectController ()<CORootBackgroudProtocol>
 
@@ -36,9 +38,36 @@
 - (void)projectReload:(NSNotification *)n
 {
     self.rightView.hidden = YES;
-    [[CORootViewController currentRoot] changeBackground:[UIImage imageNamed:@"background_project"] full:NO];
+//    [[CORootViewController currentRoot] changeBackground:[UIImage imageNamed:@"background_project"] full:NO];
+    [[CORootViewController currentRoot].projectBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
     [self.rightNav popToRootViewControllerAnimated:NO];
-    [self.listController reloadProject];
+    if (n.userInfo) {
+        NSString *data = n.userInfo[@"data"];
+        if (data.length > 0) {
+            
+            NSString *projectRegexStr = @"/u/([^/]+)/p/([^/]+)";
+            NSArray *matchedCaptures = [data captureComponentsMatchedByRegex:projectRegexStr];
+            if (matchedCaptures.count >= 3) {
+                NSString *user_global_key = matchedCaptures[1];
+                NSString *project_name = matchedCaptures[2];
+                COProject *curPro = [[COProject alloc] init];
+                curPro.ownerUserName = user_global_key;
+                curPro.name = project_name;
+                [self showProject:curPro];
+                
+                COProjectDetailRequest *request = [COProjectDetailRequest request];
+                request.projectName = project_name;
+                request.projectOwnerName = user_global_key;
+                __weak typeof(self) weakself = self;
+                [request getWithSuccess:^(CODataResponse *responseObject) {
+                    if ([weakself checkDataResponse:responseObject]) {
+                        COProject *project = responseObject.data;
+                        [self.listController reloadProject:project.projectId];
+                    }
+                } failure:^(NSError *error) {}];
+            }
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning {

@@ -91,6 +91,11 @@
     return shouldStart;
 }
 
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    [webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByClassName(\"smart-app-banner\")[0].style.display=\"none\";"];
+}
+
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     [self updateToolbarItems];

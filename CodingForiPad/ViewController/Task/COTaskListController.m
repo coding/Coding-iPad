@@ -47,17 +47,17 @@
     [_segmentControl setItemsWithTitleArray:@[@"正在进行", @"已完成的"]
                               selectedBlock:^(NSInteger index) {
                                   weakSelf.indexType = index;
-                                  if (index == 1) {
-                                      if (weakSelf.tasksFinish.count == 0) {
-                                          [weakSelf refresh];
-                                      }
-                                      else {
-                                          [weakSelf.tableView reloadData];
-                                      }
-                                  }
-                                  else {
-                                      [weakSelf.tableView reloadData];
-                                  }
+                                  [weakSelf refresh];
+//                                  [weakSelf.tableView reloadData];
+//                                  if (index == 1) {
+//                                      if (weakSelf.tasksFinish.count == 0) {
+//                                      }
+//                                      else {
+//                                      }
+//                                  }
+//                                  else {
+//                                      [weakSelf.tableView reloadData];
+//                                  }
                               }];
     
     [self refresh];
@@ -152,7 +152,7 @@
     [self.refreshCtrl endRefreshing];
     [self.tableView.infiniteScrollingView stopAnimating];
     if (0 == self.indexType) {
-        if (self.doningIndex <= [response.extraData[@"totalPage"] integerValue]) {
+        if (self.doningIndex < [response.extraData[@"totalPage"] integerValue]) {
             self.tableView.infiniteScrollingView.enabled = YES;
         }
         else {
@@ -201,7 +201,7 @@
     [self.refreshCtrl endRefreshing];
     [self.tableView.infiniteScrollingView stopAnimating];
     if (1 == self.indexType) {
-        if (self.finishIndex <= [response.extraData[@"totalPage"] integerValue]) {
+        if (self.finishIndex < [response.extraData[@"totalPage"] integerValue]) {
             self.tableView.infiniteScrollingView.enabled = YES;
         }
         else {
