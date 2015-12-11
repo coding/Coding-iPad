@@ -21,7 +21,7 @@
 #define kTopicContentCell_ColorTitle [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1.0]
 #define kTopicContentCell_ColorContent [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0]
 
-#define kCell_Width 573
+#define kCell_Width kRightView_Width
 #define kPaddingLeftWidth 20
 
 @implementation UIView (Common)

@@ -21,7 +21,7 @@
 #define kMessageCell_FontContent [UIFont systemFontOfSize:14]
 #define kMessageCell_PadingWidth 20.0
 #define kMessageCell_PadingHeight 17.0
-#define kMessageCell_ContentWidth (573*0.5)
+#define kMessageCell_ContentWidth (kRightView_Width*0.5)
 #define kMessageCell_TimeHeight 30.0
 #define kMessageCell_UserIconWith 50.0
 #define kPaddingLeftWidth 20.0
@@ -117,7 +117,7 @@
     NSString *displayStr = [MessageCell displayTimeStrWithCurMsg:_curPriMsg preMsg:_prePriMsg];
     if (displayStr) {
         if (!_timeLabel) {
-            _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(kPaddingLeftWidth, (kMessageCell_TimeHeight - 20)/2, 573 - 2*kPaddingLeftWidth, 20)];
+            _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(kPaddingLeftWidth, (kMessageCell_TimeHeight - 20)/2, kRightView_Width - 2*kPaddingLeftWidth, 20)];
             _timeLabel.backgroundColor = [UIColor clearColor];
             _timeLabel.font = [UIFont systemFontOfSize:12];
             _timeLabel.textColor = [UIColor colorWithHexString:@"0x999999"];
@@ -191,8 +191,8 @@
         [_contentLabel setX:kMessageCell_PadingWidth + 5];
         [_mediaView setX:kMessageCell_PadingWidth + 5];
         
-        bgImgViewFrame = CGRectMake((573 - kPaddingLeftWidth - kMessageCell_UserIconWith - 10) - bgImgViewSize.width, curBottomY + kMessageCell_PadingHeight, bgImgViewSize.width, bgImgViewSize.height);
-        [_userIconView setCenter:CGPointMake(573 - kPaddingLeftWidth - kMessageCell_UserIconWith/2, CGRectGetMaxY(bgImgViewFrame)- kMessageCell_UserIconWith/2)];
+        bgImgViewFrame = CGRectMake((kRightView_Width - kPaddingLeftWidth - kMessageCell_UserIconWith - 10) - bgImgViewSize.width, curBottomY + kMessageCell_PadingHeight, bgImgViewSize.width, bgImgViewSize.height);
+        [_userIconView setCenter:CGPointMake(kRightView_Width - kPaddingLeftWidth - kMessageCell_UserIconWith/2, CGRectGetMaxY(bgImgViewFrame)- kMessageCell_UserIconWith/2)];
         bgImg = [UIImage imageNamed:@"background_message_text_blue"];
         _bgImgView.frame = bgImgViewFrame;
     }

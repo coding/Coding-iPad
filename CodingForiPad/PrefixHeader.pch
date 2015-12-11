@@ -25,6 +25,7 @@
 
 #define selectedColor [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1];
 
+#define kRightView_Width (kScreen_Width - 451)
 #define kPopWidth   480.0
 #define kPopHeight  600.0
 #define kPopWidthS   400.0

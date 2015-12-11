@@ -1138,6 +1138,9 @@
                                     </containerView>
                                     <containerView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A6p-3Q-Vyx">
                                         <rect key="frame" x="0.0" y="0.0" width="354" height="684"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="354" id="xu7-ya-Cox"/>
+                                        </constraints>
                                         <connections>
                                             <segue destination="pHr-9h-qXR" kind="embed" identifier="userInfo" id="jQM-Fc-iOC"/>
                                         </connections>
@@ -2387,8 +2390,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="929" height="684"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WcT-5r-D4D">
+                            <containerView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WcT-5r-D4D">
                                 <rect key="frame" x="0.0" y="0.0" width="355" height="684"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="355" id="H41-VQ-Juv"/>
+                                </constraints>
                                 <connections>
                                     <segue destination="niq-qC-pKx" kind="embed" identifier="projectList" id="KjO-9o-qcb"/>
                                 </connections>
@@ -12218,7 +12224,7 @@
         <image name="triangle" width="12" height="11"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="lB1-gY-oI4"/>
+        <segue reference="lN2-Ad-31X"/>
         <segue reference="pYf-vo-7Wl"/>
         <segue reference="alL-dh-wcf"/>
         <segue reference="jyf-Qs-XG1"/>

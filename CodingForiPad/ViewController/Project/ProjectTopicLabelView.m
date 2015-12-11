@@ -10,7 +10,7 @@
 #import "COTopic.h"
 #import "COTagView.h"
 
-#define kCell_Width 573
+#define kCell_Width kRightView_Width
 #define kPaddingLeftWidth 20
 
 @interface ProjectTopicLabelView () <COTagViewDelegate>

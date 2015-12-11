@@ -18,7 +18,7 @@
 #import "NSString+Common.h"
 #import "ZLPhoto.h"
 
-#define kCell_Width 573
+#define kCell_Width kRightView_Width
 
 #define kTaskCommentCell_FontContent [UIFont systemFontOfSize:14]
 #define kTaskCommentCell_LeftPading 20.0

@@ -11,7 +11,7 @@
 #import "UIView+Extension.h"
 #import "UIImageView+WebCache.h"
 
-#define kMessageCell_ContentWidth (0.5 * 573)
+#define kMessageCell_ContentWidth (0.5 * kRightView_Width)
 
 @implementation MessageMediaItemCCell
 

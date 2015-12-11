@@ -20,7 +20,7 @@
 #import "NSString+Common.h"
 #import "ZLPhoto.h"
 
-#define kCell_Width 573
+#define kCell_Width kRightView_Width
 #define kPaddingLeftWidth 20
 
 @interface TopicCommentCell ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, ZLPhotoPickerBrowserViewControllerDataSource, ZLPhotoPickerBrowserViewControllerDelegate>
