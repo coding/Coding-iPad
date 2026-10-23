@@ -2,6 +2,7 @@ var express = require('express'),
     app = express(),
     app_port = process.env.VCAP_APP_PORT || 3000,
     exec = require('child_process').exec,
+    execFile = require('child_process').execFile,
     bodyParser = require('body-parser'),
     child;
 
@@ -19,7 +20,7 @@ var update_history = [],
     NO_TOKEN_MSG = '密码密码！没有密码你看什么看，加上正确的 token 参数再来好么~',
     DOWNLOD_URL_REGEXP = new RegExp('https://coding.net/u/(.+)/p/(.+)/git'),
     COMMANDS = {
-        'curl': 'curl -o update.zip {DOWNLOAD_PATH}',
+        'curl': ['curl', '-o', 'update.zip'],
         'rm_exists': 'rm -rf .tmp',
         'mkdir': 'mkdir .tmp',
         'unzip': 'unzip update.zip -d .tmp/',
@@ -28,15 +29,18 @@ var update_history = [],
     };
 
 var execCmd = function(cmd, callback){
-    console.log('Executing command: ', cmd);
-    return child = exec(cmd,function (error, stdout, stderr) {
+    console.log('Executing command: ', Array.isArray(cmd) ? cmd.join(' ') : cmd);
+    var done = function (error, stdout, stderr) {
         console.error('stdout: ' + stdout);
         console.error('stderr: ' + stderr);
         if (error !== null) {
           console.error('exec error: ' + error);
         }
         callback(error);
-    });
+    };
+    return child = Array.isArray(cmd)
+        ? execFile(cmd[0], cmd.slice(1), done)
+        : exec(cmd, done);
 };
 
 var execCmdStack = function(cmds, callback){
@@ -62,7 +66,7 @@ var execCmdStack = function(cmds, callback){
 var update = function(url){
 
     var download_url = url || 'https://coding.net/u/bluishoul/p/static-web/git/archive/master';
-    var download_command = COMMANDS.curl.replace('{DOWNLOAD_PATH}', download_url);
+    var download_command = COMMANDS.curl.concat(download_url);
 
     var cmds = [
         download_command,
